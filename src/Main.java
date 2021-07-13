@@ -9,7 +9,7 @@ public class Main {
         Random rand = new Random();
 
         //variaveis do jogo
-        String[] inimigos = {"Goblin", "Orque", "Warg", "Troll"};
+        String[] inimigos = {"Gobelin", "Orque", "Warg", "Troll", "Ogro"};
         int maxVidaInimigo = 75;
         int danoAtaqueInimigo = 25;
 
@@ -20,6 +20,7 @@ public class Main {
         int numPocoesVida = 3;
         int pocaoVidaValor = 30;
         int chanceDeReceberPocao = 50; //Porcentagem
+        int score = 0;
 
         boolean running = true;
 
@@ -63,6 +64,9 @@ public class Main {
                     if (numPocoesVida > 0) {
                         vida += pocaoVidaValor;
                         numPocoesVida--;
+                        if (vida > 100) {
+                            vida = 100;
+                        }
                         System.out.println("\t> Você bebeu uma poção de vida, curando-se por " + pocaoVidaValor + "."
                                 + "\n\t> Agora você têm " + vida + " de vida."
                                 + "\n\t> Você ainda têm " + numPocoesVida + " poções.\n");
@@ -84,12 +88,13 @@ public class Main {
                 break;
             }
 
+            score++;
             System.out.println("-----------------------------------------------");
             System.out.println(" # " + inimigo + " foi derrotado! # ");
             System.out.println(" # Você ainda têm " + vida + " de vida. # ");
             if (rand.nextInt(100) < chanceDeReceberPocao) {
                 numPocoesVida++;
-                System.out.println(" # O " + inimigo + " dropou uma poção! # ");
+                System.out.println(" # O " + inimigo + " dropou uma poção de Miruvor! # ");
                 System.out.println(" # Agora você têm  " + numPocoesVida + " poção(ões). # ");
             }
             System.out.println("-----------------------------------------------");
@@ -108,6 +113,7 @@ public class Main {
                 System.out.println("Você decidiu continuar na aventura!");
             } else if (input.equals("2")) {
                 System.out.println("Você saiu da Terra-Média, bem-sucedido nas suas aventuras!");
+                System.out.println("Inimigos derrotados: " + score);
                 break;
             }
         }
@@ -116,5 +122,8 @@ public class Main {
         System.out.println("# OBRIGADO POR JOGAR! #");
         System.out.println("#######################");
     }
+
+
+
 
 }
