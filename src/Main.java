@@ -8,13 +8,13 @@ public class Main {
         Scanner scan = new Scanner(System.in);
         Random rand = new Random();
 
-        //variaveis do jogo
+        //inimigos
         String[] inimigos = {"Gobelin", "Orque", "Warg", "Troll", "Ogro"};
         int maxVidaInimigo = 75;
         int danoAtaqueInimigo = 25;
 
 
-        //variaveis do jogador
+        //jogador
         int vida = 100;
         int danoAtaque = 50;
         int numPocoesVida = 3;
@@ -44,47 +44,51 @@ public class Main {
 
                 String input = scan.nextLine();
 
-                if (input.equals("1")) {
+                switch (input) {
+                    case "1":
+                        int danoCausado = rand.nextInt(danoAtaque);
+                        int danoSofrido = rand.nextInt(danoAtaqueInimigo);
 
-                    int danoCausado = rand.nextInt(danoAtaque);
-                    int danoSofrido = rand.nextInt(danoAtaqueInimigo);
+                        vidaInimigo -= danoCausado;
+                        vida -= danoSofrido;
 
-                    vidaInimigo -= danoCausado;
-                    vida -= danoSofrido;
+                        System.out.println("\t> Você atacou o " + inimigo + " causando " + danoCausado + " de dano!");
+                        System.out.println("\t> Você sofreu " + danoSofrido + " em retaliação.");
 
-                    System.out.println("\t> Você atacou o " + inimigo + " causando " + danoCausado + " de dano!");
-                    System.out.println("\t> Você sofreu " + danoSofrido + " em retaliação.");
-
-                    if (vida < 1) {
-                        System.out.println("\t> Você sofreu muito dano, estás muito fraco para seguir!");
-                        break;
-                    }
-                } else if (input.equals("2")) {
-
-                    if (numPocoesVida > 0) {
-                        vida += pocaoVidaValor;
-                        numPocoesVida--;
-                        if (vida > 100) {
-                            vida = 100;
+                        if (vida < 1) {
+                            System.out.println("\t> Você sofreu muito dano, estás muito fraco para seguir!");
+                            break;
                         }
-                        System.out.println("\t> Você bebeu uma poção de vida, curando-se por " + pocaoVidaValor + "."
-                                + "\n\t> Agora você têm " + vida + " de vida."
-                                + "\n\t> Você ainda têm " + numPocoesVida + " poções.\n");
-                    } else {
-                        System.out.println("\t> Você não têm poções de vida! Derrote inimigos para ter a chance de pegar uma!\n");
-                    }
+                        break;
 
-                } else if (input.equals("3")) {
-                    System.out.println("\tVocê fugiu do " + inimigo + "!");
-                    continue JOGO;
-                } else {
-                    System.out.println("\tComando invalido!");
+                    case "2":
+                        if (numPocoesVida > 0) {
+                            vida += pocaoVidaValor;
+                            numPocoesVida--;
+                            if (vida > 100) {
+                                vida = 100;
+                            }
+                            System.out.println("\t> Você bebeu uma poção de vida, curando-se por " + pocaoVidaValor + "."
+                                    + "\n\t> Agora você têm " + vida + " de vida."
+                                    + "\n\t> Você ainda têm " + numPocoesVida + " poções.\n");
+                        } else {
+                            System.out.println("\t> Você não têm poções de vida! Derrote inimigos para ter a chance de pegar uma!\n");
+                        }
+                        break;
+
+                    case "3":
+                        System.out.println("\tVocê fugiu do " + inimigo + "!");
+                        continue JOGO;
+
+                    default:
+                        System.out.println("\tComando invalido!");
+                        break;
                 }
-
             }
 
             if (vida < 1) {
-                System.out.println("\nVocê MORREU!!! ( X _ X ) ");
+                System.out.println("\nVocê sai mancando para fora do campo de batalha, muito ferido... ");
+                System.out.println("\nFIM DE JOGO!");
                 break;
             }
 
@@ -122,8 +126,4 @@ public class Main {
         System.out.println("# OBRIGADO POR JOGAR! #");
         System.out.println("#######################");
     }
-
-
-
-
 }
