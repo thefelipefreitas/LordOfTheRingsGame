@@ -1,3 +1,5 @@
+package jogo;
+
 import java.util.Random;
 import java.util.Scanner;
 
@@ -12,7 +14,6 @@ public class Main {
         String[] inimigos = {"Gobelin", "Orque", "Warg", "Troll", "Ogro"};
         int maxVidaInimigo = 75;
         int danoAtaqueInimigo = 25;
-
 
         //jogador
         int vida = 100;
@@ -126,4 +127,5 @@ public class Main {
         System.out.println("# OBRIGADO POR JOGAR! #");
         System.out.println("#######################");
     }
+
 }
