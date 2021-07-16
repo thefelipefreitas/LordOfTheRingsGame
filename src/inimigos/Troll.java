@@ -1,12 +1,12 @@
 package inimigos;
 
-public class Gobelin extends Inimigo {
+public class Troll extends Inimigo {
 
-    public Gobelin() {
+    public Troll() {
         super();
-        this.setNome("Gobelin");
+        this.setNome("Troll");
         this.setVidaInimigo(50);
-        this.setDanoAtaqueInimigo(RANDOM.nextInt(DANO_MAXIMO1));
+        this.setDanoAtaqueInimigo(RANDOM.nextInt(DANO_MAXIMO2));
     }
 
     @Override

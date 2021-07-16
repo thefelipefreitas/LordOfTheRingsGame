@@ -1,5 +1,9 @@
 package jogo;
 
+import inimigos.*;
+
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -9,11 +13,6 @@ public class Main {
 
         Scanner scan = new Scanner(System.in);
         Random rand = new Random();
-
-        //inimigos
-        String[] inimigos = {"Gobelin", "Orque", "Warg", "Troll", "Ogro"};
-        int maxVidaInimigo = 75;
-        int danoAtaqueInimigo = 25;
 
         //jogador
         int vida = 100;
@@ -31,16 +30,30 @@ public class Main {
         while (running) {
             System.out.println("-----------------------------------------------");
 
-            int vidaInimigo = rand.nextInt(maxVidaInimigo);
-            String inimigo = inimigos[rand.nextInt(inimigos.length)];
-            System.out.println("\t# " + inimigo + " apareceu!!! #\n");
+            Inimigo inimigo = null;
 
-            while (vidaInimigo > 0) {
+            List<Class<? extends Inimigo>> lista = Arrays.asList(
+                    Gobelin.class,
+                    Ogro.class,
+                    Orque.class,
+                    Troll.class,
+                    Warg.class
+            );
+
+            try {
+                inimigo = lista.get(rand.nextInt(lista.size())).newInstance();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+
+            System.out.println("\t# " + inimigo.getNome() + " apareceu!!! #\n");
+
+            while (inimigo.getVidaInimigo() > 0) {
                 System.out.println("\tSua vida: " + vida);
-                System.out.println("\tVida do " + inimigo + ": " + vidaInimigo);
+                System.out.println("\tVida do " + inimigo.getNome() + ": " + inimigo.getVidaInimigo());
                 System.out.println("\n\tO que você quer fazer?");
                 System.out.println("\t1. Atacar");
-                System.out.println("\t2. Tomar poção da saúde");
+                System.out.println("\t2. Tomar poção de Miruvor (+vida)");
                 System.out.println("\t3. Fugir");
 
                 String input = scan.nextLine();
@@ -48,12 +61,12 @@ public class Main {
                 switch (input) {
                     case "1":
                         int danoCausado = rand.nextInt(danoAtaque);
-                        int danoSofrido = rand.nextInt(danoAtaqueInimigo);
+                        int danoSofrido = inimigo.atacar();
 
-                        vidaInimigo -= danoCausado;
+                        inimigo.sofrerDano(danoCausado);
                         vida -= danoSofrido;
 
-                        System.out.println("\t> Você atacou o " + inimigo + " causando " + danoCausado + " de dano!");
+                        System.out.println("\t> Você atacou o " + inimigo.getNome() + " causando " + danoCausado + " de dano!");
                         System.out.println("\t> Você sofreu " + danoSofrido + " em retaliação.");
 
                         if (vida < 1) {
@@ -69,16 +82,16 @@ public class Main {
                             if (vida > 100) {
                                 vida = 100;
                             }
-                            System.out.println("\t> Você bebeu uma poção de vida, curando-se por " + pocaoVidaValor + "."
-                                    + "\n\t> Agora você têm " + vida + " de vida."
+                            System.out.println("\t> Você bebeu uma poção de Miruvor, curando-se por " + pocaoVidaValor + "."
+                                    + "\n\t> Agora você têm " + vida + " de Miruvor."
                                     + "\n\t> Você ainda têm " + numPocoesVida + " poções.\n");
                         } else {
-                            System.out.println("\t> Você não têm poções de vida! Derrote inimigos para ter a chance de pegar uma!\n");
+                            System.out.println("\t> Você não têm poções de Miruvor! Derrote inimigos para ter a chance de pegar uma!\n");
                         }
                         break;
 
                     case "3":
-                        System.out.println("\tVocê fugiu do " + inimigo + "!");
+                        System.out.println("\tVocê fugiu do " + inimigo.getNome() + "!");
                         continue JOGO;
 
                     default:
@@ -95,11 +108,11 @@ public class Main {
 
             score++;
             System.out.println("-----------------------------------------------");
-            System.out.println(" # " + inimigo + " foi derrotado! # ");
+            System.out.println(" # " + inimigo.getNome() + " foi derrotado! # ");
             System.out.println(" # Você ainda têm " + vida + " de vida. # ");
             if (rand.nextInt(100) < chanceDeReceberPocao) {
                 numPocoesVida++;
-                System.out.println(" # O " + inimigo + " dropou uma poção de Miruvor! # ");
+                System.out.println(" # O " + inimigo.getNome() + " dropou uma poção de Miruvor! # ");
                 System.out.println(" # Agora você têm  " + numPocoesVida + " poção(ões). # ");
             }
             System.out.println("-----------------------------------------------");
