@@ -16,14 +16,23 @@ public class Aragorn extends Heroi {
         return danoAtaque;
     }
 
-    public void tomarPocao() {
-        this.vida += this.pocaoVidaValor;
-        this.pocaoVidaValor--;
-    }
-
     @Override
     public void sofrerDano(int dano) {
         this.setVida(this.getVida() - dano);
     }
 
+    public void tomarPocao() {
+        this.vida += this.pocaoVidaValor;
+        this.numPocoesVida--;
+    }
+
+    @Override
+    public void incrementaPocao() {
+        this.numPocoesVida++;
+    }
+
+    @Override
+    public void incrementaScore() {
+        this.score++;
+    }
 }

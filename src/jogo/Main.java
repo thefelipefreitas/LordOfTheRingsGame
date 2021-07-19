@@ -28,7 +28,7 @@ public class Main {
                 Legolas.class
         );
 
-        System.out.println("Qual herói vc esoclhe?\n");
+        System.out.println("\tEscolha um herói:\n");
         System.out.println("\t1. Aragorn");
         System.out.println("\t2. Gandalf");
         System.out.println("\t3. Gimli");
@@ -44,7 +44,8 @@ public class Main {
             System.out.println(e);
         }
 
-        System.out.println("Voce escolheu o " + heroi.getNome());
+        System.out.println("\tVocê escolheu o " + heroi.getNome() + "!");
+        System.out.println("-----------------------------------------------\n");
 
         JOGO:
         while (running) {
@@ -84,11 +85,11 @@ public class Main {
                         inimigo.sofrerDano(danoCausado);
                         heroi.sofrerDano(danoSofrido);
 
-                        System.out.println("\t> Você atacou o " + inimigo.getNome() + " causando " + danoCausado + " de dano!");
-                        System.out.println("\t> Você sofreu " + danoSofrido + " em retaliação.");
+                        System.out.println("\t> " + heroi.getNome() + "  atacou o " + inimigo.getNome() + " causando " + danoCausado + " de dano!");
+                        System.out.println("\t> " + heroi.getNome() + " sofreu " + danoSofrido + " em retaliação.");
 
                         if (heroi.getVida() < 1) {
-                            System.out.println("\t> Você sofreu muito dano, estás muito fraco para seguir!");
+                            System.out.println("\t> " + heroi.getNome() + " sofreu muito dano, estás muito fraco para seguir!");
                             break;
                         }
                         break;
@@ -99,38 +100,39 @@ public class Main {
                             if (heroi.getVida() > 100) {
                                 heroi.setVida(100);
                             }
-                            System.out.println("\t> Você bebeu uma poção de Miruvor, curando-se por " + heroi.getPocaoVidaValor() + "."
-                                    + "\n\t> Agora você têm " + heroi.getVida() + " de vida."
-                                    + "\n\t> Você ainda têm " + heroi.getNumPocoesVida() + " poções.\n");
+                            System.out.println("\t> " + heroi.getNome() + " bebeu uma poção de Miruvor, curando-se por " + heroi.getPocaoVidaValor() + "."
+                                    + "\n\t> Agora " + heroi.getNome() + " têm " + heroi.getVida() + " de vida."
+                                    + "\n\t> " + heroi.getNome() + " ainda têm " + heroi.getNumPocoesVida() + " poções.\n");
                         } else {
-                            System.out.println("\t> Você não têm poções de Miruvor! Derrote inimigos para ter a chance de pegar uma!\n");
+                            System.out.println("\t> " + heroi.getNome() + " não têm poções de Miruvor! Derrote inimigos para ter a chance de pegar uma!\n");
                         }
                         break;
 
                     case "3":
-                        System.out.println("\tVocê fugiu do " + inimigo.getNome() + "!");
+                        System.out.println("\t" + heroi.getNome() + " fugiu do " + inimigo.getNome() + "!\n");
                         continue JOGO;
 
                     default:
-                        System.out.println("\tComando invalido!");
+                        System.out.println("\tComando invalido!\n");
                         break;
                 }
             }
 
             if (heroi.getVida() < 1) {
-                System.out.println("\nVocê sai mancando para fora do campo de batalha, muito ferido... ");
-                System.out.println("\nFIM DE JOGO!");
+                System.out.println("\n" + heroi.getNome() + " sai mancando para fora do campo de batalha, muito ferido... ");
+                System.out.println("\nInimigos derrotados: " + heroi.getScore());
+                System.out.println("\n\t# FIM DE JOGO! #");
                 break;
             }
 
-            //score++;
+            heroi.incrementaScore();
             System.out.println("-----------------------------------------------");
             System.out.println(" # " + inimigo.getNome() + " foi derrotado! # ");
-            System.out.println(" # Você ainda têm " + heroi.getVida() + " de vida. # ");
+            System.out.println(" # " + heroi.getNome() + " ainda têm " + heroi.getVida() + " de vida. # ");
             if (rand.nextInt(100) < heroi.getChanceDeReceberPocao()) {
-                //numPocoesVida++;
+                heroi.incrementaPocao();
                 System.out.println(" # O " + inimigo.getNome() + " dropou uma poção de Miruvor! # ");
-                System.out.println(" # Agora você têm  " + heroi.getNumPocoesVida() + " poção(ões). # ");
+                System.out.println(" # Agora " + heroi.getNome() + " têm  " + heroi.getNumPocoesVida() + " poção(ões). # ");
             }
             System.out.println("-----------------------------------------------");
             System.out.println("O que você deseja fazer agora?");
@@ -147,7 +149,7 @@ public class Main {
             if (input.equals("1")) {
                 System.out.println("Você decidiu continuar na aventura!");
             } else if (input.equals("2")) {
-                System.out.println("Você saiu da Terra-Média, bem-sucedido nas suas aventuras!");
+                System.out.println(heroi.getNome() + " saiu da Terra-Média, bem-sucedido nas suas aventuras!");
                 System.out.println("Inimigos derrotados: " + heroi.getScore());
                 break;
             }

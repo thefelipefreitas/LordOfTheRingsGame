@@ -68,8 +68,12 @@ public abstract class Heroi {
 
     public abstract int atacar();
 
+    public abstract void sofrerDano(int dano);
+
     public abstract void tomarPocao();
 
-    public abstract void sofrerDano(int dano);
+    public abstract void incrementaPocao();
+
+    public abstract void incrementaScore();
 
 }

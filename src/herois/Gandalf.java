@@ -16,16 +16,26 @@ public class Gandalf extends Heroi {
     public int atacar() {
         return danoAtaque;
     }
+    
+    @Override
+    public void sofrerDano(int dano) {
+        this.setVida(this.getVida() - dano);
+    }
 
     @Override
     public void tomarPocao() {
         this.vida += this.pocaoVidaValor;
-        this.pocaoVidaValor--;
+        this.numPocoesVida--;
     }
 
     @Override
-    public void sofrerDano(int dano) {
-        this.setVida(this.getVida() - dano);
+    public void incrementaPocao() {
+        this.numPocoesVida++;
+    }
+
+    @Override
+    public void incrementaScore() {
+        this.score++;
     }
 
 }
