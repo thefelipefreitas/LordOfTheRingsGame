@@ -5,7 +5,7 @@ public class Gobelin extends Inimigo {
     public Gobelin() {
         super();
         this.setNome("Gobelin");
-        this.setVidaInimigo(50);
+        this.setVidaInimigo(30);
         this.setDanoAtaqueInimigo(RANDOM.nextInt(DANO_MAXIMO1));
     }
 

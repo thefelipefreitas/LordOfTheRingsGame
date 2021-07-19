@@ -65,4 +65,11 @@ public abstract class Heroi {
     public void setScore(int score) {
         this.score = score;
     }
+
+    public abstract int atacar();
+
+    public abstract void tomarPocao();
+
+    public abstract void sofrerDano(int dano);
+
 }

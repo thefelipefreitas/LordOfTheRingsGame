@@ -5,7 +5,7 @@ public class Warg extends Inimigo {
     public Warg() {
         super();
         this.setNome("Warg");
-        this.setVidaInimigo(70);
+        this.setVidaInimigo(50);
         this.setDanoAtaqueInimigo(RANDOM.nextInt(DANO_MAXIMO2));
     }
 

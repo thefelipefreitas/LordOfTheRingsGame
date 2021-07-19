@@ -1,21 +1,23 @@
 package herois;
 
-public class Gimli extends Heroi {
+public class Gandalf extends Heroi {
 
-    public Gimli() {
-        this.setNome("Gimli");
+    public Gandalf() {
+        this.setNome("Gandalf");
         this.setVida(100);
-        this.setDanoAtaque(35);
-        this.setNumPocoesVida(3);
-        this.setPocaoVidaValor(35);
+        this.setDanoAtaque(50);
+        this.setNumPocoesVida(5);
+        this.setPocaoVidaValor(40);
         this.setChanceDeReceberPocao(50);
         this.setScore(0);
     }
 
+    @Override
     public int atacar() {
         return danoAtaque;
     }
 
+    @Override
     public void tomarPocao() {
         this.vida += this.pocaoVidaValor;
         this.pocaoVidaValor--;

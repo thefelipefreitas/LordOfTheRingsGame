@@ -4,8 +4,8 @@ public class Ogro extends Inimigo {
 
     public Ogro() {
         super();
-        this.setNome("Gobelin");
-        this.setVidaInimigo(50);
+        this.setNome("Ogro");
+        this.setVidaInimigo(45);
         this.setDanoAtaqueInimigo(RANDOM.nextInt(DANO_MAXIMO2));
     }
 

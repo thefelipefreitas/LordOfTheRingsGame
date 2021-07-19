@@ -5,7 +5,7 @@ public class Orque extends Inimigo {
     public Orque() {
         super();
         this.setNome("Orque");
-        this.setVidaInimigo(50);
+        this.setVidaInimigo(60);
         this.setDanoAtaqueInimigo(RANDOM.nextInt(DANO_MAXIMO3));
     }
 

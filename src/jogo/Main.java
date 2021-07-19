@@ -1,5 +1,6 @@
 package jogo;
 
+import herois.*;
 import inimigos.*;
 
 import java.util.Arrays;
@@ -14,25 +15,42 @@ public class Main {
         Scanner scan = new Scanner(System.in);
         Random rand = new Random();
 
-        //jogador
-        int vida = 100;
-        int danoAtaque = 50;
-        int numPocoesVida = 3;
-        int pocaoVidaValor = 30;
-        int chanceDeReceberPocao = 50; //Porcentagem
-        int score = 0;
-
         boolean running = true;
 
         System.out.println("Bem Vindo à Terra-Média!");
+        System.out.println("-----------------------------------------------");
+
+        Heroi heroi = null;
+        List<Class<? extends Heroi>> listaHerois = Arrays.asList(
+                Aragorn.class,
+                Gandalf.class,
+                Gimli.class,
+                Legolas.class
+        );
+
+        System.out.println("Qual herói vc esoclhe?\n");
+        System.out.println("\t1. Aragorn");
+        System.out.println("\t2. Gandalf");
+        System.out.println("\t3. Gimli");
+        System.out.println("\t4. Legolas");
+
+        String escolhaDeHeroi = scan.nextLine();
+
+        int convert = Integer.parseInt(escolhaDeHeroi);
+
+        try {
+            heroi = listaHerois.get(convert - 1).newInstance();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        System.out.println("Voce escolheu o " + heroi.getNome());
 
         JOGO:
         while (running) {
-            System.out.println("-----------------------------------------------");
 
             Inimigo inimigo = null;
-
-            List<Class<? extends Inimigo>> lista = Arrays.asList(
+            List<Class<? extends Inimigo>> listaInimigos = Arrays.asList(
                     Gobelin.class,
                     Ogro.class,
                     Orque.class,
@@ -41,7 +59,7 @@ public class Main {
             );
 
             try {
-                inimigo = lista.get(rand.nextInt(lista.size())).newInstance();
+                inimigo = listaInimigos.get(rand.nextInt(listaInimigos.size())).newInstance();
             } catch (Exception e) {
                 System.out.println(e);
             }
@@ -49,7 +67,7 @@ public class Main {
             System.out.println("\t# " + inimigo.getNome() + " apareceu!!! #\n");
 
             while (inimigo.getVidaInimigo() > 0) {
-                System.out.println("\tSua vida: " + vida);
+                System.out.println("\tSua vida: " + heroi.getVida());
                 System.out.println("\tVida do " + inimigo.getNome() + ": " + inimigo.getVidaInimigo());
                 System.out.println("\n\tO que você quer fazer?");
                 System.out.println("\t1. Atacar");
@@ -60,31 +78,30 @@ public class Main {
 
                 switch (input) {
                     case "1":
-                        int danoCausado = rand.nextInt(danoAtaque);
+                        int danoCausado = heroi.atacar();
                         int danoSofrido = inimigo.atacar();
 
                         inimigo.sofrerDano(danoCausado);
-                        vida -= danoSofrido;
+                        heroi.sofrerDano(danoSofrido);
 
                         System.out.println("\t> Você atacou o " + inimigo.getNome() + " causando " + danoCausado + " de dano!");
                         System.out.println("\t> Você sofreu " + danoSofrido + " em retaliação.");
 
-                        if (vida < 1) {
+                        if (heroi.getVida() < 1) {
                             System.out.println("\t> Você sofreu muito dano, estás muito fraco para seguir!");
                             break;
                         }
                         break;
 
                     case "2":
-                        if (numPocoesVida > 0) {
-                            vida += pocaoVidaValor;
-                            numPocoesVida--;
-                            if (vida > 100) {
-                                vida = 100;
+                        if (heroi.getNumPocoesVida() > 0) {
+                            heroi.tomarPocao();
+                            if (heroi.getVida() > 100) {
+                                heroi.setVida(100);
                             }
-                            System.out.println("\t> Você bebeu uma poção de Miruvor, curando-se por " + pocaoVidaValor + "."
-                                    + "\n\t> Agora você têm " + vida + " de Miruvor."
-                                    + "\n\t> Você ainda têm " + numPocoesVida + " poções.\n");
+                            System.out.println("\t> Você bebeu uma poção de Miruvor, curando-se por " + heroi.getPocaoVidaValor() + "."
+                                    + "\n\t> Agora você têm " + heroi.getVida() + " de vida."
+                                    + "\n\t> Você ainda têm " + heroi.getNumPocoesVida() + " poções.\n");
                         } else {
                             System.out.println("\t> Você não têm poções de Miruvor! Derrote inimigos para ter a chance de pegar uma!\n");
                         }
@@ -100,20 +117,20 @@ public class Main {
                 }
             }
 
-            if (vida < 1) {
+            if (heroi.getVida() < 1) {
                 System.out.println("\nVocê sai mancando para fora do campo de batalha, muito ferido... ");
                 System.out.println("\nFIM DE JOGO!");
                 break;
             }
 
-            score++;
+            //score++;
             System.out.println("-----------------------------------------------");
             System.out.println(" # " + inimigo.getNome() + " foi derrotado! # ");
-            System.out.println(" # Você ainda têm " + vida + " de vida. # ");
-            if (rand.nextInt(100) < chanceDeReceberPocao) {
-                numPocoesVida++;
+            System.out.println(" # Você ainda têm " + heroi.getVida() + " de vida. # ");
+            if (rand.nextInt(100) < heroi.getChanceDeReceberPocao()) {
+                //numPocoesVida++;
                 System.out.println(" # O " + inimigo.getNome() + " dropou uma poção de Miruvor! # ");
-                System.out.println(" # Agora você têm  " + numPocoesVida + " poção(ões). # ");
+                System.out.println(" # Agora você têm  " + heroi.getNumPocoesVida() + " poção(ões). # ");
             }
             System.out.println("-----------------------------------------------");
             System.out.println("O que você deseja fazer agora?");
@@ -131,7 +148,7 @@ public class Main {
                 System.out.println("Você decidiu continuar na aventura!");
             } else if (input.equals("2")) {
                 System.out.println("Você saiu da Terra-Média, bem-sucedido nas suas aventuras!");
-                System.out.println("Inimigos derrotados: " + score);
+                System.out.println("Inimigos derrotados: " + heroi.getScore());
                 break;
             }
         }
