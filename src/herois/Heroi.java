@@ -2,13 +2,13 @@ package herois;
 
 public abstract class Heroi {
 
-    String nome;
-    int vida;
-    int danoAtaque;
-    int numPocoesVida;
-    int pocaoVidaValor;
-    int chanceDeReceberPocao; //Porcentagem
-    int score;
+    protected String nome;
+    protected int vida;
+    protected int danoAtaque;
+    protected int numPocoesVida;
+    protected int pocaoVidaValor;
+    protected int chanceDeReceberPocao; //Porcentagem
+    protected int score;
 
     public String getNome() {
         return nome;
@@ -24,10 +24,6 @@ public abstract class Heroi {
 
     public void setVida(int vida) {
         this.vida = vida;
-    }
-
-    public int getDanoAtaque() {
-        return danoAtaque;
     }
 
     public void setDanoAtaque(int danoAtaque) {

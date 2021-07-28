@@ -32,10 +32,6 @@ public abstract class Inimigo {
         return vidaInimigo;
     }
 
-    public int getDanoAtaqueInimigo() {
-        return danoAtaqueInimigo;
-    }
-
     public abstract int atacar();
 
     public abstract void sofrerDano(int dano);

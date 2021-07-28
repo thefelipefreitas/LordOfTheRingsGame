@@ -7,15 +7,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Main {
+
+    private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
     public static void main(String[] args) {
 
         Scanner scan = new Scanner(System.in);
         Random rand = new Random();
-
-        boolean running = true;
 
         System.out.println("Bem Vindo à Terra-Média!");
         System.out.println("-----------------------------------------------");
@@ -41,14 +43,15 @@ public class Main {
         try {
             heroi = listaHerois.get(convert - 1).newInstance();
         } catch (Exception e) {
-            System.out.println(e);
+            LOGGER.log(Level.SEVERE, e.toString(), e);
         }
 
-        System.out.println("\tVocê escolheu o " + heroi.getNome() + "!");
-        System.out.println("-----------------------------------------------\n");
+        for (String s : Arrays.asList("\tVocê escolheu o " + heroi.getNome() + "!", "-----------------------------------------------\n")) {
+            System.out.println(s);
+        }
 
         JOGO:
-        while (running) {
+        while (true) {
 
             Inimigo inimigo = null;
             List<Class<? extends Inimigo>> listaInimigos = Arrays.asList(
@@ -62,7 +65,7 @@ public class Main {
             try {
                 inimigo = listaInimigos.get(rand.nextInt(listaInimigos.size())).newInstance();
             } catch (Exception e) {
-                System.out.println(e);
+                LOGGER.log(Level.SEVERE, e.toString(), e);
             }
 
             System.out.println("\t# " + inimigo.getNome() + " apareceu!!! #\n");
@@ -146,15 +149,14 @@ public class Main {
                 input = scan.nextLine();
             }
 
-            if (input.equals("1")) {
-                System.out.println("Você decidiu continuar na aventura!");
-            } else if (input.equals("2")) {
+            if (input.equals("1")) System.out.println("Você decidiu continuar na aventura!");
+            else {
                 System.out.println(heroi.getNome() + " saiu da Terra-Média, bem-sucedido nas suas aventuras!");
                 System.out.println("Inimigos derrotados: " + heroi.getScore());
                 break;
             }
-        }
 
+        }
         System.out.println("\n#######################");
         System.out.println("# OBRIGADO POR JOGAR! #");
         System.out.println("#######################");
