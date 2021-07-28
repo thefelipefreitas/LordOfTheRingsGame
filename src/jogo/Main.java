@@ -38,6 +38,17 @@ public class Main {
 
         String escolhaDeHeroi = scan.nextLine();
 
+        while (!escolhaDeHeroi.equals("1") && !escolhaDeHeroi.equals("2") && !escolhaDeHeroi.equals("3") && !escolhaDeHeroi.equals("4")) {
+            System.out.println("Comando inválido! Selecione um herói disponível.");
+            System.out.println("-----------------------------------------------\n");
+            System.out.println("\tEscolha um herói:\n");
+            System.out.println("\t1. Aragorn");
+            System.out.println("\t2. Gandalf");
+            System.out.println("\t3. Gimli");
+            System.out.println("\t4. Legolas");
+            escolhaDeHeroi = scan.nextLine();
+        }
+
         int convert = Integer.parseInt(escolhaDeHeroi);
 
         try {
@@ -46,9 +57,8 @@ public class Main {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
 
-        for (String s : Arrays.asList("\tVocê escolheu o " + heroi.getNome() + "!", "-----------------------------------------------\n")) {
-            System.out.println(s);
-        }
+        System.out.println("\tVocê escolheu o " + heroi.getNome() + "!");
+        System.out.println("-----------------------------------------------\n");
 
         JOGO:
         while (true) {
