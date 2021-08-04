@@ -3,39 +3,39 @@ package herois;
 public class Gandalf extends Heroi {
 
     public Gandalf() {
-        this.setNome("Gandalf");
-        this.setVida(100);
-        this.setDanoAtaque(50);
-        this.setNumPocoesVida(5);
-        this.setPocaoVidaValor(40);
-        this.setChanceDeReceberPocao(50);
-        this.setScore(0);
+        super.setNome("Gandalf");
+        super.setVida(100);
+        super.setDanoAtaque(50);
+        super.setNumPocoesVida(5);
+        super.setPocaoVidaValor(40);
+        super.setChanceDeReceberPocao(50);
+        super.setScore(0);
     }
 
     @Override
     public int atacar() {
         return danoAtaque;
     }
-    
+
     @Override
     public void sofrerDano(int dano) {
-        this.setVida(this.getVida() - dano);
+        super.setVida(super.getVida() - dano);
     }
 
     @Override
     public void tomarPocao() {
-        this.vida += this.pocaoVidaValor;
-        this.numPocoesVida--;
+        super.vida += super.pocaoVidaValor;
+        super.numPocoesVida--;
     }
 
     @Override
     public void incrementaPocao() {
-        this.numPocoesVida++;
+        super.numPocoesVida++;
     }
 
     @Override
     public void incrementaScore() {
-        this.score++;
+        super.score++;
     }
 
 }

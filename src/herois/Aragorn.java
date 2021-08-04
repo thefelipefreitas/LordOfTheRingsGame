@@ -3,13 +3,13 @@ package herois;
 public class Aragorn extends Heroi {
 
     public Aragorn() {
-        this.setNome("Aragorn");
-        this.setVida(100);
-        this.setDanoAtaque(50);
-        this.setNumPocoesVida(3);
-        this.setPocaoVidaValor(30);
-        this.setChanceDeReceberPocao(50);
-        this.setScore(0);
+        super.setNome("Aragorn");
+        super.setVida(100);
+        super.setDanoAtaque(50);
+        super.setNumPocoesVida(3);
+        super.setPocaoVidaValor(30);
+        super.setChanceDeReceberPocao(50);
+        super.setScore(0);
     }
 
     public int atacar() {
@@ -18,21 +18,21 @@ public class Aragorn extends Heroi {
 
     @Override
     public void sofrerDano(int dano) {
-        this.setVida(this.getVida() - dano);
+        super.setVida(super.getVida() - dano);
     }
 
     public void tomarPocao() {
-        this.vida += this.pocaoVidaValor;
-        this.numPocoesVida--;
+        super.vida += super.pocaoVidaValor;
+        super.numPocoesVida--;
     }
 
     @Override
     public void incrementaPocao() {
-        this.numPocoesVida++;
+        super.numPocoesVida++;
     }
 
     @Override
     public void incrementaScore() {
-        this.score++;
+        super.score++;
     }
 }

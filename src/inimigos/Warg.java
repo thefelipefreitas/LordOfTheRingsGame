@@ -3,10 +3,9 @@ package inimigos;
 public class Warg extends Inimigo {
 
     public Warg() {
-        super();
-        this.setNome("Warg");
-        this.setVidaInimigo(50);
-        this.setDanoAtaqueInimigo(RANDOM.nextInt(DANO_MAXIMO2));
+        super.setNome("Warg");
+        super.setVidaInimigo(50);
+        super.setDanoAtaqueInimigo(RANDOM.nextInt(DANO_MAXIMO2));
     }
 
     @Override
@@ -16,7 +15,7 @@ public class Warg extends Inimigo {
 
     @Override
     public void sofrerDano(int dano) {
-        this.setVidaInimigo(this.getVidaInimigo() - dano);
+        super.setVidaInimigo(super.getVidaInimigo() - dano);
     }
 
 
