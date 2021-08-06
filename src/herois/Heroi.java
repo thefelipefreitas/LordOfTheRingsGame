@@ -62,14 +62,25 @@ public abstract class Heroi {
         this.score = score;
     }
 
-    public abstract int atacar();
+    public int atacar() {
+        return danoAtaque;
+    }
 
-    public abstract void sofrerDano(int dano);
+    public void sofrerDano(int dano) {
+        this.setVida(this.getVida() - dano);
+    }
 
-    public abstract void tomarPocao();
+    public void tomarPocao() {
+        this.vida += this.pocaoVidaValor;
+        this.numPocoesVida--;
+    }
 
-    public abstract void incrementaPocao();
+    public void incrementaPocao() {
+        this.numPocoesVida++;
+    }
 
-    public abstract void incrementaScore();
+    public void incrementaScore() {
+        this.score++;
+    }
 
 }

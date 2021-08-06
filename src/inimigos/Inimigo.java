@@ -32,8 +32,12 @@ public abstract class Inimigo {
         return vidaInimigo;
     }
 
-    public abstract int atacar();
+    public int atacar() {
+        return danoAtaqueInimigo;
+    }
 
-    public abstract void sofrerDano(int dano);
+    public void sofrerDano(int dano) {
+        this.setVidaInimigo(this.getVidaInimigo() - dano);
+    }
 
 }
