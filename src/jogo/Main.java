@@ -108,17 +108,7 @@ public class Main {
                         break;
 
                     case "2":
-                        if (heroi.getNumPocoesVida() > 0) {
-                            heroi.tomarPocao();
-                            if (heroi.getVida() > 100) {
-                                heroi.setVida(100);
-                            }
-                            System.out.println("\t> " + heroi.getNome() + " bebeu uma poção de Miruvor, curando-se por " + heroi.getPocaoVidaValor() + "."
-                                    + "\n\t> Agora " + heroi.getNome() + " têm " + heroi.getVida() + " de vida."
-                                    + "\n\t> " + heroi.getNome() + " ainda têm " + heroi.getNumPocoesVida() + " poções.\n");
-                        } else {
-                            System.out.println("\t> " + heroi.getNome() + " não têm poções de Miruvor! Derrote inimigos para ter a chance de pegar uma!\n");
-                        }
+                        heroi.tomarPocao();
                         break;
 
                     case "3":
@@ -142,11 +132,8 @@ public class Main {
             System.out.println("-----------------------------------------------");
             System.out.println(" # " + inimigo.getNome() + " foi derrotado! # ");
             System.out.println(" # " + heroi.getNome() + " ainda têm " + heroi.getVida() + " de vida. # ");
-            if (rand.nextInt(100) < heroi.getChanceDeReceberPocao()) {
-                heroi.incrementaPocao();
-                System.out.println(" # O " + inimigo.getNome() + " dropou uma poção de Miruvor! # ");
-                System.out.println(" # Agora " + heroi.getNome() + " têm  " + heroi.getNumPocoesVida() + " poção(ões). # ");
-            }
+            heroi.possibilidadePocao(inimigo.getNome());
+
             System.out.println("-----------------------------------------------");
             System.out.println("O que você deseja fazer agora?");
             System.out.println("1. Continuar lutando");
@@ -171,5 +158,4 @@ public class Main {
         System.out.println("# OBRIGADO POR JOGAR! #");
         System.out.println("#######################");
     }
-
 }

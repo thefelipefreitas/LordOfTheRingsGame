@@ -1,5 +1,7 @@
 package herois;
 
+import java.util.Random;
+
 public abstract class Heroi {
 
     protected String nome;
@@ -71,16 +73,31 @@ public abstract class Heroi {
     }
 
     public void tomarPocao() {
-        this.vida += this.pocaoVidaValor;
-        this.numPocoesVida--;
+        if (this.getNumPocoesVida() > 0) {
+            this.vida += this.pocaoVidaValor;
+            this.numPocoesVida--;
+
+            if (this.getVida() > 100) {
+                this.setVida(100);
+            }
+            System.out.println("\t> " + this.getNome() + " bebeu uma poção de Miruvor, curando-se por " + this.getPocaoVidaValor() + "."
+                    + "\n\t> Agora " + this.getNome() + " têm " + this.getVida() + " de vida."
+                    + "\n\t> " + this.getNome() + " ainda têm " + this.getNumPocoesVida() + " poções.\n");
+        } else {
+            System.out.println("\t> " + this.getNome() + " não têm poções de Miruvor! Derrote inimigos para ter a chance de pegar uma!\n");
+        }
     }
 
-    public void incrementaPocao() {
-        this.numPocoesVida++;
+    public void possibilidadePocao(String nomeInimigo) {
+        Random rand = new Random();
+        if (rand.nextInt(100) < this.getChanceDeReceberPocao()) {
+            this.numPocoesVida++;
+            System.out.println(" # O " + nomeInimigo + " dropou uma poção de Miruvor! # ");
+            System.out.println(" # Agora " + this.getNome() + " têm  " + this.getNumPocoesVida() + " poção(ões). # ");
+        }
     }
 
     public void incrementaScore() {
         this.score++;
     }
-
 }
